@@ -34,5 +34,3 @@
 1. 安装@babel/core、@babel/preset-env、babel-loader、core-js
 2. webpack的plugins配置项中增加babel-loader的配置
 3. webpack的output的配置关闭箭头函数
-
-
