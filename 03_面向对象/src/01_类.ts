@@ -1,8 +1,18 @@
 class Person{
   name: string = '小明'
   age: number = 23
-  static type:string = 'person'
-  readonly country:string = 'china'
+  static type:string = 'person'   // 静态属性
+  readonly country:string = 'china'    // 只读属性
+  private mobile: string = '12345678901'   // 私有属性
+  protected school: string = '小学'    // 受保护属性
+
+  // private 的存取器，也就是getter和setter，在存取器中可以添加条件限制
+  get getMobile() {
+    return this.mobile
+  }
+  set setMobile(value: string) {
+    this.mobile = value
+  }
 }
 
 const man = new Person()
@@ -21,3 +31,33 @@ console.log(man.country);
 // console.log(Person.country);   报错
 man.age = 30
 // man.country = 'usa'   // 报错
+
+
+
+// private，实例不能访问私有属性，只能通过存取器访问和修改
+// console.log(man.mobile);    // 报错
+console.log(man.getMobile);
+man.setMobile = '18711223344';
+console.log(man.getMobile);
+
+
+// protected，实例不能访问受保护属性
+// man.school = '中学'   // 报错
+// console.log(man.school);   // 报错
+
+class Student extends Person{
+  constructor() {
+    super()
+    // private，子类不能访问私有属性，只能通过存取器访问和修改
+    // console.log(this.mobile);   // 报错
+    man.setMobile = '13288889999';
+    console.log(man.getMobile);
+
+    // protected，子类可以访问受保护属性
+    this.school = '中学'
+    console.log(this.school);
+  }
+}
+
+
+new Student()

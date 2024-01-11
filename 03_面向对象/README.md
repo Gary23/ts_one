@@ -7,9 +7,11 @@
 
 1. 类是对象的模型，通过通过类来创建对象
 2. 类定义属性和方法
-   - 无关键字，实例的属性和方法，也就是new调用后获取到的实例上的属性和对象
-   - static，静态的属性和方法，静态指的是类本身的属性和方法
-   - readonly，只读属性和方法：定义的是实例的属性和方法，但是不能修改
+   - public，如果不写任何关键字默认就是public，实例的属性，也就是new调用后获取到的实例上的属性
+   - static，静态属性，静态指的是类本身的属性
+   - readonly，只读属性，定义的是实例的属性，但是不能修改
+   - private，私有属性，在类的内部可以访问，在实例对象和子类都不可以访问，可以通过在类中定义存取器来获取和修改私有属性
+   - protected，受保护的属性，不能在实例对象访问，只能在当前类和当前类的子类中使用和修改，属于public和private的中间状态
 
 ### 02_构造函数
 
@@ -38,95 +40,13 @@
 4. 接口的所有属性和方法都不能有实际的值，只能定义结构，和抽象类比较类似
 
 
-属性的封装
+### 06_泛型
 
-属性可以任意被修改，可能会导致对象中的数据变得非常不安全
-ts可以在属性前添加属性关键字，比如static和readonly
-还有public和private这个关键字，public是默认关键字，不写就是public，private是私有属性
-
-private私有属性：在类的内部可以访问，在实例对象上不可以访问，在子类中也不可以访问，可以通过在类中添加getter方法让实例对象可以访问私有属性，如果要通过实例对象设置可以在类中添加一个setter方法
-这样的好处是，设置属性和获取属性时是可控的，数据更安全
-
-setter和getter是存取器，
-
-ts中设置getter的方式可以直接写
-get name() {
-   return this.name
-}
-可以直接写实例.name获取属性    person.name
-
-setter也是一样的  
-
-
-
-protected 受保护的属性，不能在实例对象访问，只能在当前类和当前类的子类中使用和修改，属于public和private的中间状态
-
-
-可以直接将属性定义在构造函数中
-constructor(public name: string, public age: number){
-
-}
-
-
-
-
-
-
-泛型
-
-这里函数的返回值是由参数确定的，如果参数的类型未知，那函数的类型也是未知，这种情况除使用泛型是比any更好的选择
-function fn(a: number): number {
-   return a
-}
-
-在定义函数或者类时，如果遇到类型不明确的，除了使用any，还可以使用泛型
-
-指定了一个泛型K
-function fn<K>(a: K): K {
-   return a
-}
-
-可以直接调用具有泛型的函数
-fn(10)    // 相当于把number赋值给K
-fn('hello')    // 相当于把string赋值给K
-
-fn<string>('hello')    // 手动指定K是string
-
-
-两个泛型
-function fn2<T, H>(a: T, b: H):T {
-   console.log(b)
-   return a
-}
-fn2<number, string>(123, 'hello')
-
-
-定义接口限制泛型的结构
-interface Inter{
-   length: number
-}
-T实现inter接口
-function fn3<T extends Inter>(a: T):T {
-   return a.length
-}
-
-fn3(112)   // 报错，number没有length属性
-fn3('113')
-
-
-泛型用在类中
-class MyClass<T>{
-   name: T
-   constructor(name: T) {
-      this.name = name
-   }
-}
-const mc = new MyClass<string>(name: '小明')
-
-
-
-
-
+1. 在定义函数或者类时，如果遇到类型不明确的，除了使用any，还可以使用泛型
+2. 函数定义泛型后，可以直接调用，默认调用传参的类型就是泛型的实际类型，也可以手动指定
+3. 一个函数可以指定多个泛型
+4. 如果传参是一个对象，可以定义接口来限制泛型的结构，函数定义泛型时通过extends继承接口
+5. 如果类的传承也是未知类型，也可以使用泛型
 
 
 
