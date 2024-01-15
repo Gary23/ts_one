@@ -1,0 +1,33 @@
+/**
+在项目下新建tsconfig.json，tsc可以编译所有文件   tsc -w 可以监视所有ts文件
+
+tsconfig.json是ts编译器的配置文件，根据配置的信息对代码进行编译
+include  array   指定哪些ts文件需要被编译   **表示任意目录   *表示任意文件
+exclude  array    和include相反，表示排除的文件，不需要被编译的文件，默认会排除node_modules目录，所以通常用不到
+compilerOptions  json   编译器的选项  配置比较复杂  下面的配置如果想看都有哪些配置项，配置一个错误的值就会给出提示
+  target<string>: 指定ts被编译后的es版本
+  module<string>: js本身有多种模块化解决方案，要使用的模块化的规范
+  lib<array>: 指定项目中要使用的库，一般不进行配置，默认就是浏览器的运行环境需要的库，如果代码不是在浏览器环境运行而是在node运行可以改配置
+  outDir<string>: 指定编译后文件输出目录，配置一个相对路径
+  outFile<string>: 可以把编译后的多个文件合并为一个文件，因为是合并代码所以要注意作用域的问题，而且module必须配置amd或者system规范
+  allowJs<boolean>: 是否对js文件进行编译，不会做任何处理，默认false
+  checkJs<boolean>: 是否检查js代码是否符合语法规范，默认false
+  removeComments<boolean>: 是否删除注释
+  noEmit<boolean>: 不生成编译后的文件，如果只想检查语法不实际编译可以配置，默认false
+  noEmitOnError<boolean>: 如果ts有错误时不生成编译后文件，默认false
+  <!-- 和语法检查相关的选项 -->
+  strict<boolean>: 所有严格检查的总开关，打开后下面所有的开挂那都是打开状态
+  alwaysStrict<boolean>: 是否在编译后的js文件使用严格模式，默认false
+  noImplicitAny<boolean>: 是否允许隐式any类型
+  noImplicitThis<boolean>: 是否允许隐式的this，在不明确this类型的时候会报错不允许使用，this可以指定类型为window
+  strictNullChecks<boolean>: 是否检查空值，比如获取dom元素后绑定事件，如果没有获取到元素那变量值为null，这样绑定事件就会报错
+*/
+
+{
+  "compilerOptions": {
+    "target": "ES2015",
+    "module": "ES2015",
+    "noEmitOnError": true,
+    // "noEmit": true
+  },
+}
