@@ -1,4 +1,6 @@
 import './index.less';
+import GameControl from './modules/GameControl';
 
-const a = 10
-console.log(a);
+const gameControl = new GameControl()
+
+gameControl.init()
