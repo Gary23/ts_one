@@ -22,14 +22,17 @@ export default class ScorePanel {
   }
   addScore() {
     this.score += 10;
-    if (this.score % this.upgrade > 1) {
-      this.addLevel();
-    }
+    // if (this.score % this.upgrade > 1) {
+    //   this.addLevel();
+    // }
+    this.addLevel();
+    this.scoreElement.innerHTML = `score：${this.score + ''}`;
   }
   addLevel() {
     if (this.level >= this.maxLevel) {
       return;
     }
-    this.level += 1;
+    this.level = Math.floor(this.score / this.upgrade);
+    this.levelElement.innerHTML = `level：${this.level + ''}`;
   }
 }

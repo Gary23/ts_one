@@ -19,10 +19,10 @@ export default class GameControl {
   scorePanel: ScorePanel
   direction: string = 'ArrowRight'
   gameOver: Boolean = false
-  constructor() {
+  constructor(maxLevel: number, upgrade: number) {
     this.snake = new Snake()
     this.food = new Food()
-    this.scorePanel = new ScorePanel(20, 100)
+    this.scorePanel = new ScorePanel(maxLevel, upgrade)
   }
   init() {
     document.addEventListener('keydown', this.keydownHandler.bind(this))
@@ -37,11 +37,14 @@ export default class GameControl {
       this.scorePanel.addScore()
       this.food.change()
       this.snake.addBodies()
+      // this.snake.moveBodies()
     }
   }
   snakeMove() {
     let x = this.snake.x
     let y = this.snake.y
+    // console.log('snakeMove',  x, y);
+
     switch (this.direction) {
       case 'ArrowUp':
       case 'up':
@@ -58,8 +61,12 @@ export default class GameControl {
       case 'ArrowRight':
       case 'right':
         x += 10
+        // console.log('right', x);
         break;
     }
+
+    // console.log('snakeMove',  x, y);
+    this.checkFood(x, y)
 
     // 在GameControl类中try这个存取器的赋值，异常捕获里设置gameover
     try {
@@ -69,7 +76,6 @@ export default class GameControl {
       this.gameOver = true
       alert('gameover')
     }
-    this.checkFood(x, y)
 
     if (!this.gameOver) {
       window.setTimeout(this.snakeMove.bind(this), 500 - (this.scorePanel.level - 1) * 30)
